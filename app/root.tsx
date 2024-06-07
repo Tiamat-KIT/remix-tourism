@@ -28,9 +28,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <Navbar />
         {children}
-        <footer>
-          <p>Footer</p>
-          <button className="btn">aaa</button>
+        <footer className="text-2xl p-5 text-center text-base-content font-bold">
+          <h3>Tourism Doc</h3>
         </footer>
         <ScrollRestoration />
         <Scripts />
