@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import parse, { DOMNode, Element, domToReact } from "html-react-parser"
-import { getArticleBySlug } from "~/newt/client.server";
+import { useLoaderData } from "@remix-run/react";
+import { useLayoutEffect,useRef } from "react";
+import { Article, getArticleBySlug } from "~/newt/client.server";
 
 export async function loader(props: LoaderFunctionArgs){
     const {id} = props.params
@@ -10,19 +10,23 @@ export async function loader(props: LoaderFunctionArgs){
 }
 
 export default function ArticlePage(){
-    const data = useLoaderData<typeof loader>()
-    if(data === null){
-        return (
-            <p>Loading...</p>
-        )
-    } else {
-        (document.getElementById("article") as HTMLElement).appendChild(
-            document.createRange().createContextualFragment(data.body)
-        )
-    }
+    const ArticleRef = useRef<Article | null>()
+    
+    useLayoutEffect( () => {
+        ArticleRef.current = useLoaderData<typeof loader>()
+        if(ArticleRef.current === null) {
+            throw new Error()
+        }
+        else {
+            (document.getElementById("article") as HTMLElement).appendChild(
+                document.createRange().createContextualFragment(ArticleRef.current.body)
+            )
+        }
+    },[])
+    
     return (
         <main className="w-full bg-slate-200/80 text-base-100 p-5">
-            <h2 className="text-secondary-content text-xl font-bold">{data.title}</h2>
+            <h2 className="text-secondary-content text-xl font-bold">{ArticleRef.current?.title}</h2>
             <article id="article" className="prose text-secondary-content">
                 
             </article>
