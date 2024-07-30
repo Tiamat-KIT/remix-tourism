@@ -25,7 +25,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
         <Navbar />
         {children}
         <footer className="text-2xl p-5 text-center text-base-content font-bold">

@@ -1,16 +1,36 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { HeadersFunction, json,LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getArticleBySlug } from "~/newt/client.server";
+import { env } from "~/env";
+import { client, Article } from "~/newt/client.server";
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+    const cacheControl =
+        loaderHeaders.get('Cache-Control') ??
+        'max-age=0, s-maxage=60, stale-while-revalidate=60';
+    return {
+        'cache-control': cacheControl,
+    };
+};
 
 
 export async function loader(props: LoaderFunctionArgs){
     const {id} = props.params
+    console.log(id)
     if(typeof id !== 'string') throw new Error('Invalid ID')
-    return json(await getArticleBySlug(id))    
+    const article = await client.getFirstContent<Article>({
+        appUid: env.NEWT_APP_UID,
+        modelUid: env.NEWT_MODEL_UID,
+        query: {
+            _id: id,
+            select: ['_id', 'title', 'body'],
+        }
+    })
+    return json(article)    
 }
 
 export default function ArticlePage(){
     const data = useLoaderData<typeof loader>()
+
     if(data === null){
         return (
             <p>Loading...</p>
