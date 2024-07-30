@@ -1,4 +1,4 @@
-import { LinksFunction, LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getArticleBySlug } from "~/newt/client.server";
 

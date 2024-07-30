@@ -1,9 +1,6 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { getArticles } from "~/newt/client.server";
-import { $path } from "remix-routes";
-import parse from "html-react-parser"
-import useInnerSize from "~/hooks/useInnerSize";
 import Card from "~/components/Card";
 
 export async function loader(props: LoaderFunctionArgs){

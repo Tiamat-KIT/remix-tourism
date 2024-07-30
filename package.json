@@ -6,9 +6,11 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint . --fix ./app/**",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "knip": "knip --fix --fix-type exports,types,dependencies",
+    "format": "dprint check --log-level=debug && dprint fmt"
   },
   "dependencies": {
     "@remix-run/node": "^2.9.2",
@@ -17,6 +19,8 @@
     "@t3-oss/env-core": "^0.10.1",
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
+    "dprint": "^0.47.2",
+    "eslint-plugin-unused-imports": "^4.0.1",
     "html-react-parser": "^5.1.10",
     "isbot": "^4.1.0",
     "newt-client-js": "^3.3.2",
@@ -29,6 +33,7 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
+    "@types/node": "^22.0.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
@@ -36,11 +41,12 @@
     "daisyui": "latest",
     "eslint": "^8.38.0",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "typescript": "^5.1.6",
+    "knip": "^5.27.0",
+    "typescript": "^5.5.4",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },

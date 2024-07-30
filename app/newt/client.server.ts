@@ -38,4 +38,3 @@ export async function getArticleBySlug(slug: string){
     })
     return article
 }
-export default client
